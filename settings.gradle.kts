@@ -1,2 +1,2 @@
-rootProject.name = "transmissionRpc"
+rootProject.name = "transmission-rpc"
 

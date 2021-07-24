@@ -1,11 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     kotlin("jvm") version "1.5.21"
+    `maven-publish`
 }
 
 group = "moe.gkd"
 version = "0.0.1"
+
 java.sourceCompatibility = JavaVersion.VERSION_14
 
 repositories {
@@ -36,4 +39,25 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+publishing {
+    val properties = Properties().apply {
+        load(File("sign.properties").reader())
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/yukimura-yang/transmission-rpc")
+            credentials {
+                username = properties.getProperty("username")
+                password = properties.getProperty("token")
+            }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            from(components["java"])
+        }
+    }
 }
