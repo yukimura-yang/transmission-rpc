@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 class TransmissionRpcTests {
 
     private fun initialize() {
-        TransmissionRpc.initialize("username", "password", "http://192.168.10.198:9091/")
+        TransmissionRpc.initialize("username", "password", "http://localhost:9091/")
     }
 
     @Test
@@ -20,6 +20,9 @@ class TransmissionRpcTests {
     @Test
     fun getTorrent() {
         initialize()
-        TransmissionRpc.getTorrent()
+        val torrents = TransmissionRpc.getTorrent()
+        torrents.forEach {
+            println(it.name)
+        }
     }
 }
