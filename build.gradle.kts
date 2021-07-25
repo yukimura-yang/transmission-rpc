@@ -7,12 +7,13 @@ plugins {
 }
 
 group = "moe.gkd"
-version = "0.0.1"
+version = "0.0.2"
 
 java.sourceCompatibility = JavaVersion.VERSION_14
 
 repositories {
     maven(url = "https://maven.aliyun.com/repository/central")
+    google()
 }
 
 val retrofit_version = "2.9.0"
@@ -23,11 +24,12 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
-    implementation("com.squareup.retrofit2:retrofit:${retrofit_version}")
-    implementation("com.squareup.retrofit2:converter-gson:${retrofit_version}")
-    implementation("com.squareup.okhttp3:okhttp:${okhttp_version}")
-    implementation("com.squareup.okhttp3:logging-interceptor:${okhttp_version}")
-    implementation("com.google.code.gson:gson:2.8.7")
+    api("com.squareup.retrofit2:retrofit:${retrofit_version}")
+    api("com.squareup.retrofit2:converter-gson:${retrofit_version}")
+    api("com.squareup.okhttp3:okhttp:${okhttp_version}")
+    api("com.squareup.okhttp3:logging-interceptor:${okhttp_version}")
+    api("com.google.code.gson:gson:2.8.7")
+    api("com.google.guava:guava:30.1.1-jre")
 }
 
 tasks.withType<KotlinCompile> {

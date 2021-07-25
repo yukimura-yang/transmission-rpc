@@ -35,9 +35,33 @@ object TransmissionRpc {
      * 添加下载
      * @return hashString
      */
-    fun addTorrent(magnet: String, dir: String): String? {
+    fun addTorrentMagnet(magnet: String, dir: String): String? {
         try {
-            val resp = Api.getApi().addTorrent(AddTorrentReqBody(magnet, dir))
+            val resp = Api.getApi().addTorrent(
+                AddTorrentReqBody(
+                    magnet = magnet,
+                    dir = dir
+                )
+            )
+            return resp.arguments.torrentAdded.hashString
+        } catch (e: NullPointerException) {
+            //已存在
+            return null
+        }
+    }
+
+    /**
+     * 添加下载
+     * @param torrent 文件的base64编码
+     */
+    fun addTorrent(torrent: String, dir: String): String? {
+        try {
+            val resp = Api.getApi().addTorrent(
+                AddTorrentReqBody(
+                    torrent = torrent,
+                    dir = dir
+                )
+            )
             return resp.arguments.torrentAdded.hashString
         } catch (e: NullPointerException) {
             //已存在
