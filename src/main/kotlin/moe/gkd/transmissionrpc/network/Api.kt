@@ -10,10 +10,15 @@ object Api {
     private lateinit var api: IApi
     var SessionId = ""
 
+    private var okHttpClient: OkHttpClient? = null
+    private var retrofit: Retrofit? = null
+
     fun initialize(userName: String, password: String, url: String) {
+        okHttpClient = null
+        retrofit = null
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val okHttpClient = OkHttpClient.Builder()
+        okHttpClient = OkHttpClient.Builder()
             .addNetworkInterceptor(logging)
             .addInterceptor(BasicParamsInterceptor())
             .authenticator(object : Authenticator {
@@ -29,13 +34,13 @@ object Api {
             }
             )
             .build()
-        val retrofit = Retrofit.Builder()
+        retrofit = Retrofit.Builder()
             .baseUrl(url)
             .addCallAdapterFactory(TransmissionRpcCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
+            .client(okHttpClient!!)
             .build()
-        api = retrofit.create(IApi::class.java)
+        api = retrofit!!.create(IApi::class.java)
     }
 
     fun getApi(): IApi {

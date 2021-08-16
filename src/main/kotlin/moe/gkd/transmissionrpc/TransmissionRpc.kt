@@ -3,6 +3,8 @@ package moe.gkd.transmissionrpc
 import moe.gkd.transmissionrpc.data.Torrent
 import moe.gkd.transmissionrpc.network.Api
 import moe.gkd.transmissionrpc.network.request.AddTorrentReqBody
+import moe.gkd.transmissionrpc.network.request.StartTorrentReqBody
+import moe.gkd.transmissionrpc.network.request.StopTorrentReqBody
 import moe.gkd.transmissionrpc.network.response.args.GetSessionRespArgs
 import retrofit2.HttpException
 
@@ -69,6 +71,41 @@ object TransmissionRpc {
         }
     }
 
+    /**
+     * 停止下载
+     */
+    fun stopTorrent(vararg ids: Int): String {
+        try {
+            val resp = Api.getApi().stopTorrent(
+                StopTorrentReqBody(
+                    ids
+                )
+            )
+            return resp.result
+        } catch (e: Exception) {
+            return "error"
+        }
+    }
+
+    /**
+     * 开始下载
+     */
+    fun startTorrent(vararg ids: Int): String {
+        try {
+            val resp = Api.getApi().startTorrent(
+                StartTorrentReqBody(
+                    ids
+                )
+            )
+            return resp.result
+        } catch (e: Exception) {
+            return "error"
+        }
+    }
+
+    /**
+     * 获取下载列表
+     */
     fun getTorrent(): List<Torrent> {
         try {
             val resp = Api.getApi().getTorrents()

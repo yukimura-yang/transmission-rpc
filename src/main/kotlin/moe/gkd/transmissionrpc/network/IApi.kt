@@ -1,8 +1,6 @@
 package moe.gkd.transmissionrpc.network
 
-import moe.gkd.transmissionrpc.network.request.AddTorrentReqBody
-import moe.gkd.transmissionrpc.network.request.GetSessionBody
-import moe.gkd.transmissionrpc.network.request.GetTorrentsReqBody
+import moe.gkd.transmissionrpc.network.request.*
 import moe.gkd.transmissionrpc.network.response.ResponseBody
 import moe.gkd.transmissionrpc.network.response.args.AddTorrentRespArgs
 import moe.gkd.transmissionrpc.network.response.args.GetSessionRespArgs
@@ -25,4 +23,15 @@ interface IApi {
     fun getTorrents(
         @Body body: GetTorrentsReqBody = GetTorrentsReqBody()
     ): ResponseBody<GetTorrentsRespArgs>
+
+    @POST("/transmission/rpc")
+    fun startTorrent(
+        @Body body: StartTorrentReqBody
+    ): ResponseBody<Any>
+
+    @POST("/transmission/rpc")
+    fun stopTorrent(
+        @Body body: StopTorrentReqBody
+    ): ResponseBody<Any>
+
 }
