@@ -44,7 +44,7 @@ class Torrent(
     val totalSize: Long,
     val trackerStats: List<TrackerStats>,
     val trackers: List<Tracker>,
-    val uploadRatio: Int,
+    val uploadRatio: Double,
     val uploadedEver: Int,
     val webseedsSendingToUs: Int,
 )
